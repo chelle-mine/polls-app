@@ -1,0 +1,24 @@
+doctype html
+html(lang='en')
+  head
+    title Vote. - Just polls.
+    link(rel='stylesheet' type='text/css' href='/public/css/main.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js')
+    script(src='/common/ajax-functions.js')
+    script(src='/public/javascript/chartBuild.js')
+    script(src='/public/javascript/managePolls.js')
+  body
+    div.container
+      include includes/header.pug
+      main
+        div.main-content
+          h2.page-title Manage Polls
+          ul.list
+            each poll in polls
+              li
+                div.btn-group-wrapper
+                  a(href='/polls/' + poll.link class='poll-list-item') #{poll.question}
+                  button(class='modify-btn results-btn' name=poll.link onclick="viewResults('" + JSON.stringify(poll) + "', document.querySelector('.main-content'))") Results
+                  button(class='modify-btn remove-btn' name=poll.link) Delete
+      script(src='/public/javascript/header.js')
+      include includes/footer.pug

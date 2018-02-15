@@ -1,0 +1,16 @@
+nav(class='nav' role='navigation' id='navbar')
+  if user
+    div.nav-left
+      a(class='site-title' href='/' id='home') Vote.
+      a(class='nav-item' href='/new') +
+    div.nav-right
+      a(class='nav-item' href='/my-polls')= (user.displayName || user.username) 
+      a(class='nav-item' href='/logout') Log out
+  else
+    div.nav-left
+      a(class='site-title' href='/' id='home') Vote.
+    div.nav-right
+      a(class='nav-item' href='/login')
+        div.login-item
+          | Log in  
+        img(src='/public/img/gh-black.png' class='login-item')

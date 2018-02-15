@@ -1,3 +1,4 @@
+// ajax fns to be used throughout app
 const appURL = window.location.origin;
 const ajaxFns = {
     ready(fn) {
@@ -7,18 +8,18 @@ const ajaxFns = {
 
         document.addEventListener('DOMContentLoaded', fn, false);
     },
-    ajaxRequest(method, url, cb) {
+    ajaxRequest(method, url, cb, info) {
         let promise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
             xhr.onload = () => {
                 if (xhr.status === 200) resolve(xhr.response);
-                else reject(Error(request.statusText));
+                else reject(Error(xhr.statusText));
             };
             xhr.onerror = () => {
                 reject(Error('Network Error.'));
             };
-            xhr.send();
+            xhr.send(info);
         });
 
         promise.then((fulfillment) => {

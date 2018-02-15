@@ -1,0 +1,22 @@
+doctype html
+html(lang='en')
+  head
+    title Vote. - Just polls.
+    link(rel='stylesheet' type='text/css' href='/public/css/main.css')
+    script(src='/common/ajax-functions.js')
+    script(src='/public/javascript/newPoll.js')
+  body
+    div.container
+      include includes/header.pug
+      main
+        div.main-content
+          h2.page-title New Poll
+          form(class='form' id='newpoll-form')
+            div.input-wrapper
+              input(type='text' name='poll-question' placeholder='Title' class='new-poll-text' required)
+              input(type='text' name='option' placeholder='Option 1' class='option-input new-poll-text' required)
+              input(type='text' name='option' placeholder='Option 2' class='option-input new-poll-text' required)
+              input(type='button' id='clone' class='new-poll-btn' value='+ Add option')
+              input(type='submit' name='create-poll' value='Create Poll' class='new-poll-btn')
+      include includes/footer.pug
+    script(src='/public/javascript/header.js')

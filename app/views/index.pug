@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+  head
+    title Vote. - Just polls.
+    link(rel='stylesheet' type='text/css' href='/public/css/main.css')
+  body
+    div.container
+      include includes/header.pug    
+      main
+        div.main-content
+          h2.page-title Polls
+          ul.list
+            each poll in polls
+              li
+                a(class='poll-list-item' href='/polls/' + poll.link)= poll.question
+      include includes/footer.pug

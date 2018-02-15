@@ -1,8 +1,8 @@
 'use strict';
 
-const GitHubStrategy = require('passport-github').Strategy;
-const User = require('../models/user');
-const { githubAuth } = require('./auth');
+const GitHubStrategy = require('passport-github2').Strategy;
+const User = require('../app/models/user');
+const githubAuth = require('./auth').githubAuth;
 
 module.exports = function(passport) {
     passport.serializeUser((user, done) => {
@@ -21,6 +21,7 @@ module.exports = function(passport) {
         callbackURL: githubAuth.callbackURL
     }, (token, refreshToken, profile, done) => {
         process.nextTick(() => {
+            // check for existing user
             User.findOne({
                 'github.id': profile.id
             }, (err, user) => {
@@ -29,22 +30,21 @@ module.exports = function(passport) {
                 if (user) return done(null, user);
                 else {
                     // create document for new user
-                    const user = new User();
-
-                    user.github.id = profile.id;
-                    user.github.displayName = profile.displayName;
-                    user.github.username = profile.username;
-                    user.github.publicRepos = profile._json.public_repos;
-                    user.nbrClicks.clicks = 0;
+                    const user = new User({
+                        github: {
+                            id: profile.id,
+                            displayName: profile.displayName,
+                            username: profile.username
+                        },
+                        polls: []
+                    });
 
                     user.save((err) => {
-                        if (err) throw err;
+                        if (err) return done(err);
 
                         return done(null, user);
                     });
-
                 }
-
             });
         });
     }));

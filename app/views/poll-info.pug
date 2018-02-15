@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    title Vote. - Just polls.
+    link(rel='stylesheet' type='text/css' href='/public/css/main.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js')
+    script(src='/common/ajax-functions.js')
+    script(src='/public/javascript/chartBuild.js')
+    script(src='/public/javascript/vote.js')
+  body
+    div.container
+      include includes/header.pug
+      main
+        div.main-content
+          h2.page-title#poll-question= poll.question
+          form(class='form' id='vote-form')
+            table(class='chart-table')
+              each opt in poll.options
+                tr.table-row
+                  td
+                    input(class='poll-option' type='radio' name='option' value=opt.name)
+                    p.option-name= opt.name
+              if user
+                tr(class='table-row')
+                  td
+                    input(class='poll-option' type='radio' name='option' id='custom-radio')
+                    input(class='poll-option' type='text' name='custom-option' placeholder='Other' id='custom-text' disabled='disabled')
+              tr.table-row
+                td
+                  input(type='submit' name='vote' value='Submit Vote' id='submit-btn')
+      include includes/footer.pug
