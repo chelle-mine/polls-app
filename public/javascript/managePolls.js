@@ -2,7 +2,8 @@
 
 // viewing results
 function viewResults(data, parentNode) {
-    drawChart(data, parentNode);
+    const poll = JSON.stringify(data);
+    drawChart(poll, parentNode);
     const goBack = document.createElement('a');
     goBack.setAttribute('href', '/my-polls');
     goBack.id = 'back-link';
@@ -11,6 +12,7 @@ function viewResults(data, parentNode) {
 }
 
 window.onload = function() {
+    highlightHeader();
     // delete functionality
     const deleteBtns = document.getElementsByClassName('remove-btn');
     for (let i = 0; i < deleteBtns.length; i++) {
