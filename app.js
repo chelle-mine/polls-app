@@ -9,10 +9,10 @@ const express = require('express')
     , pug = require('pug')
     , path = require('path');
 
-const app = express();
-
 require('dotenv').config();
 require('./config/passport')(passport);
+
+const app = express();
 const dbURI = process.env.NODE_ENV ==='production'
             ? process.env.MONGO_URI
             : 'mongodb://localhost:27017/pollsdbtest';
