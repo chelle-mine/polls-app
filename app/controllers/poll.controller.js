@@ -6,7 +6,7 @@ const User = require('../models/user');
 
 // GET /api/polls
 exports.all = (req, res, next) => {
-    Poll.find().lean().exec((err, docs) => {
+    Poll.find().sort({_id: -1}).lean().exec((err, docs) => {
         if (err) throw err;
         req.allPolls = docs;
         next();
@@ -15,7 +15,7 @@ exports.all = (req, res, next) => {
 
 // GET api/my-polls
 exports.user = (req, res, next) => {
-    Poll.find({ author: req.user._id }).lean().exec((err, docs) => {
+    Poll.find({ author: req.user._id }).sort({_id: -1}).lean().exec((err, docs) => {
         if (err) throw err;
         req.userPolls = docs;
         next();
@@ -55,7 +55,7 @@ exports.create = (req, res) => {
 
             poll.save((err, doc) => {
                 if (err) throw err;
-                // attach link of new poll to req object
+                // return newly created doc
                 res.json(doc);
             });
         });
@@ -88,8 +88,6 @@ exports.remove = (req, res, next) => {
 // require github auth
 /*
  * Creates a new option and votes for it.
- * Intercept each vote request. If req.body does not contain a 'custom-option',
- * calls next() without doing anything.
  */
 exports.add = (req, res) => {
     const newOption = { name: req.body['custom-option'], votes: 1 };
@@ -103,7 +101,7 @@ exports.add = (req, res) => {
 // POST /api/polls/:pollId/vote
 // TODO update sub-doc
 /*
- * Follows add(), if req.voted does not exist
+ * Defers to next middleware if custom-option is detected
  */
 exports.vote = (req, res, next) => {
 
