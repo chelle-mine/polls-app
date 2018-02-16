@@ -1,6 +1,8 @@
 'use strict';
 
 window.onload = function() {
+    highlightHeader();
+
     const form = document.getElementById('newpoll-form');
     const inputWrapper = document.querySelector('.input-wrapper');
     const addOption = document.getElementById('clone');

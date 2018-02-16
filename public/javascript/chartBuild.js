@@ -2,6 +2,8 @@
 
 function drawChart(poll, parentNode) {
     const parsedPoll = JSON.parse(poll);
+    console.log(poll);
+    console.log(parsedPoll);
     const choices = parsedPoll.options;
     const names = choices.map((choice) => choice.name);
     const votes = choices.map((choice) => choice.votes);

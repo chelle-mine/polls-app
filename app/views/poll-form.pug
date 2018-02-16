@@ -4,6 +4,7 @@ html(lang='en')
     title Vote. - Just polls.
     link(rel='stylesheet' type='text/css' href='/public/css/main.css')
     script(src='/common/ajax-functions.js')
+    script(src='/public/javascript/header.js')
     script(src='/public/javascript/newPoll.js')
   body
     div.container
@@ -19,4 +20,3 @@ html(lang='en')
               input(type='button' id='clone' class='new-poll-btn' value='+ Add option')
               input(type='submit' name='create-poll' value='Create Poll' class='new-poll-btn')
       include includes/footer.pug
-    script(src='/public/javascript/header.js')

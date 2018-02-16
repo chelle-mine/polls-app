@@ -11,6 +11,7 @@ module.exports = (app, passport) => {
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) return next();
         else {
+            // save page to redirect to after successful auth
             req.session.sendTo = req.path;
             res.redirect('/login');
         }
